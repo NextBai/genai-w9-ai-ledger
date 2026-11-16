@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>第九週作業1103 — AI 記帳網站</title>
+<style>
+  body { font-family: "標楷體","DFKai-SB","Microsoft JhengHei",serif; font-size: 14pt; line-height: 1.7; margin: 56px 64px; color:#111; }
+  h1 { font-size: 20pt; text-align:center; margin-bottom: 4px; }
+  .meta { text-align:center; font-size: 12pt; color:#444; margin-bottom: 24px; }
+  h2 { font-size: 15pt; border-left: 6px solid #2c6e49; padding-left: 10px; margin-top: 26px; }
+  p, li { text-align: justify; }
+  code { font-family: Consolas, monospace; background:#f2f2f2; padding: 1px 5px; font-size: 11pt; }
+  table { border-collapse: collapse; width: 100%; font-size: 12pt; }
+  th, td { border: 1px solid #999; padding: 6px 10px; text-align: left; }
+  th { background: #eef3ee; }
+  .urls { font-family: Consolas, monospace; font-size: 11.5pt; word-break: break-all; }
+</style>
+</head>
+<body>
+<h1>生成式AI 第九週作業1103</h1>
+<div class="meta">題目：用 AI Coding 出一個記帳的網站<br>311949 白東衢　·　2026-11-16</div>
+
+<h2>一、專案主題</h2>
+<p>我請 AI 幫我寫出一個「記帳網站」。網站名稱為「AI 記帳本」。使用者可以輸入一筆收入或支出，存入瀏覽器本地儲存；也可以刪除紀錄。網站另有「本月統計」頁面，自動彙總當月收入、支出與結餘，並依分類列出金額，作為月報表。</p>
+<table>
+<tr><th>項目</th><th>內容</th></tr>
+<tr><td>GitHub 原始碼</td><td class="urls">https://github.com/NextBai/genai-w9-ai-ledger</td></tr>
+<tr><td>網頁成果（GitHub Pages）</td><td class="urls">https://nextbai.github.io/genai-w9-ai-ledger/</td></tr>
+<tr><td>技術棧</td><td>純前端：HTML + CSS + JavaScript，無後端、零依賴</td></tr>
+</table>
+
+<h2>二、使用哪個 AI 工具做 Coding</h2>
+<p>我使用 <b>Claude（Anthropic 的對話式 AI 助手）</b>作為 AI Coding 工具。流程為：我先寫好規格書 <code>AGENTS.md</code>，再把它貼給 Claude，要求它一次生成整個網站的檔案。此做法符合本週課堂所學：先給 AI 明確的規格與限制，再讓它產出程式碼，而不是請它随便發揮。</p>
+
+<h2>三、我的 AGENTS.md 寫了哪些內容</h2>
+<p><code>AGENTS.md</code> 是我提供給 AI 代理的「規格書與工作規則」，放在倉庫根目錄。內容共分五節：</p>
+<ol>
+<li><b>專案目標</b>：一句話說清楚要做什麼——純前端記帳網站，支援新增、刪除收入／支出紀錄，並產生本月統計報表。</li>
+<li><b>硬性技術限制</b>：只用 HTML、CSS、原生 JavaScript；禁止框架、打包工具與後端；資料一律存 <code>localStorage</code>；每個檔案不超过 250 行。</li>
+<li><b>檔案結構</b>：指定 <code>index.html</code>（記帳主頁）、<code>stats.html</code>（月報表）、<code>assets/</code>（CSS 與 JS）的目錄配置，AI 不得自行增減。</li>
+<li><b>功能驗收清單</b>：逐條列出可測試的行為，例如「金額欄位輸入非數字時須顯示錯誤訊息且不得存入」、「刪除紀錄後統計數字須同步更新」。</li>
+<li><b>AI 工作規則</b>：要求 AI 對不確定之處先問不要猜、不得偷偷擴大範圍、修改後必須回報 diffs 摘要。</li>
+</ol>
+
+<h2>四、實際讓 AI Coding 的過程與踩坑</h2>
+<p><b>成功案例：</b>把 <code>AGENTS.md</code> 貼給 Claude 後，第一次生成就產出可運行的網站，新增、刪除與月統計功能皆正常。</p>
+<p><b>踩到的坑與解法：</b></p>
+<ol>
+<li><b>日期預設值錯誤</b>：AI 生成的表單以 <code>new Date()</code> 直接當日期值，格式含時間造成存入後月統計比對失敗。<b>解法</b>：把此事寫回 <code>AGENTS.md</code> 驗收清單（「日期欄位須為 YYYY-MM-DD 格式」），再請 AI 修正——規格先行，AI 修得比對話來回快。</li>
+<li><b>範疇膨脹誘惑</b>：AI 主動提議加入圖表與匯出 CSV 功能。因超出本週作業範圍且違反「每個檔案不超过 250 行」限制，依 <code>AGENTS.md</code> 第 5 節規則要求它維持原範圍。</li>
+<li><b>本地儲存鍵名不一致</b>：兩個頁面各用不同 localStorage 鍵名，造成主頁存入的資料在統計頁看不到。<b>解法</b>：在 <code>AGENTS.md</code> 明文規定統一鍵名 <code>aiLedger.txns</code>。</li>
+</ol>
+
+<h2>五、成果驗證</h2>
+<ul>
+<li>本地以 <code>python -m http.server</code> 實測：新增 3 筆支出、1 筆收入後刪除 1 筆，本月統計的收入、支出、結餘與分類金額全部正確。</li>
+<li>已推上 GitHub 並開啟 GitHub Pages，公開網址见第一节表格，手機與桌機瀏覽器均可開啟使用。</li>
+</ul>
+
+<h2>六、小結</h2>
+<p>本作業讓我體會：AI Coding 的品質取決於規格的品質。<code>AGENTS.md</code> 寫得越具體（限制、結構、驗收清單），AI 第一次就做對的機率越高；出錯時把教訓寫回規格書，比在對話裡反覆糾正更有效率。</p>
+</body>
+</html>
