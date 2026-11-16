@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI 記帳本 — 月報表</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<nav class="topnav">
+  <a href="index.html" class="brand">AI 記帳本</a>
+  <a href="index.html">記帳</a>
+  <a href="stats.html" class="active">月報表</a>
+</nav>
+<main>
+  <h1>月份統計</h1>
+  <section class="card">
+    <div class="field"><label for="month-picker">選擇月份</label>
+      <input type="month" id="month-picker"></div>
+    <div id="chart" class="chart"></div>
+    <p id="stats-empty" class="hint">這個月還沒有紀錄。</p>
+  </section>
+  <section class="card">
+    <h2>分類小計 <span id="grand-total" class="total"></span></h2>
+    <table class="stat-table" id="stat-table">
+      <thead><tr><th>類別</th><th>筆數</th><th>金額</th><th>佔比</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+</main>
+<footer>資料來源與記帳頁相同（localStorage），數字＝明細加總</footer>
+<script src="assets/app.js"></script>
+<script>initStatsPage();</script>
+</body>
+</html>

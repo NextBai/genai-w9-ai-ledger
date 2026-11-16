@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI 記帳本 — 首頁</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<nav class="topnav">
+  <a href="index.html" class="brand">AI 記帳本</a>
+  <a href="index.html" class="active">記帳</a>
+  <a href="stats.html">月報表</a>
+</nav>
+<main>
+  <h1>今天記了什麼？</h1>
+  <section class="card">
+    <form id="entry-form">
+      <div class="field"><label for="amount">金額（NT$）</label>
+        <input type="number" id="amount" min="1" step="1" required placeholder="例如 150"></div>
+      <div class="field"><label for="category">類別</label>
+        <select id="category"></select></div>
+      <div class="field"><label for="note">備註</label>
+        <input type="text" id="note" maxlength="40" placeholder="例如 午餐"></div>
+      <div class="field"><label for="date">日期</label>
+        <input type="date" id="date" required></div>
+      <button type="submit" class="btn">記一筆</button>
+      <span id="form-msg" class="msg"></span>
+    </form>
+  </section>
+  <section class="card">
+    <h2>本月明細 <span id="month-total" class="total"></span></h2>
+    <ul id="entry-list" class="entry-list"></ul>
+    <p id="empty-hint" class="hint">還沒有紀錄，先記第一筆吧。</p>
+  </section>
+</main>
+<footer>純前端 · localStorage · 依 AGENTS.md 規則由 AI 協作開發</footer>
+<script src="assets/app.js"></script>
+<script>initIndexPage();</script>
+</body>
+</html>

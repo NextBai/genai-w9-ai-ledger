@@ -1,0 +1,53 @@
+/* AI 記帳本 — 全站唯一樣式（規則見 AGENTS.md 第 5 節） */
+:root{
+  --ink:#1c2430; --sub:#5b6b7c; --acc:#0e7a5f; --acc2:#e8f4ef;
+  --bg:#f6f8f7; --card:#ffffff; --line:#e2e8e5; --warn:#b3402a;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Microsoft JhengHei","PingFang TC",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.6}
+main{max-width:860px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:26px;margin:18px 4px}
+h2{font-size:18px;margin:4px 0 12px}
+.topnav{display:flex;gap:4px;background:var(--card);border-bottom:1px solid var(--line);
+  padding:10px 16px;position:sticky;top:0;z-index:5}
+.topnav a{color:var(--sub);text-decoration:none;padding:6px 14px;border-radius:8px;font-size:15px}
+.topnav a.brand{font-weight:700;color:var(--ink)}
+.topnav a.active,.topnav a:hover{background:var(--acc2);color:var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:18px 20px;margin:14px 0;box-shadow:0 1px 3px rgba(20,40,30,.05)}
+.field{margin:10px 0}
+.field label{display:block;font-size:13px;color:var(--sub);margin-bottom:4px}
+input,select{width:100%;max-width:320px;padding:9px 12px;border:1px solid var(--line);
+  border-radius:9px;font-size:15px;font-family:inherit;background:#fff}
+input:focus,select:focus{outline:2px solid var(--acc);border-color:transparent}
+.btn{background:var(--acc);color:#fff;border:0;border-radius:9px;padding:10px 26px;
+  font-size:15px;cursor:pointer;font-family:inherit}
+.btn:hover{filter:brightness(1.1)}
+.msg{margin-left:10px;font-size:14px;color:var(--acc)}
+.msg.err{color:var(--warn)}
+.hint{color:var(--sub);font-size:14px}
+.total{float:right;font-size:15px;color:var(--acc)}
+/* === 記帳明細 === */
+.entry-list{list-style:none;margin:0;padding:0}
+.entry-list li{display:flex;justify-content:space-between;gap:10px;
+  padding:9px 4px;border-bottom:1px dashed var(--line);font-size:15px}
+.entry-list .cat{display:inline-block;background:var(--acc2);color:var(--acc);
+  border-radius:6px;padding:1px 8px;font-size:13px;margin-right:8px}
+.entry-list .amt{font-variant-numeric:tabular-nums;font-weight:600}
+.entry-list .del{color:var(--warn);cursor:pointer;border:0;background:none;font-size:14px}
+/* === 月報表 === */
+.chart{margin:14px 0}
+.chart .row{display:flex;align-items:center;gap:10px;margin:7px 0}
+.chart .lab{width:64px;font-size:14px;color:var(--sub);text-align:right}
+.chart .bar{height:22px;background:var(--acc);border-radius:5px;min-width:2px;
+  transition:width .3s}
+.chart .val{font-size:13px;color:var(--sub)}
+.stat-table{width:100%;border-collapse:collapse;font-size:15px}
+.stat-table th,.stat-table td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+.stat-table th{color:var(--sub);font-size:13px}
+footer{max-width:860px;margin:0 auto;padding:16px;color:var(--sub);font-size:13px}
+@media(max-width:480px){
+  main{padding:14px 10px 30px} h1{font-size:22px}
+  input,select{max-width:100%} .total{float:none;display:block;margin-top:4px}
+}
